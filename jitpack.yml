@@ -3,6 +3,8 @@ jdk:
   - openjdk17
 before_install:
   - ./scripts/prepareJitpackEnvironment.sh
+  - sdk install java 21.0.3-open
+  - sdk use java 21.0.3-open
 install:
   - FILE="-Dfile=SpinWheel-release.aar"
   - mvn install:install-file $FILE -DgroupId=com.github.iNoob-coder -DartifactId=SpinMyWheel -Dversion=1.0 -Dpackaging=aar -DgeneratePom=true

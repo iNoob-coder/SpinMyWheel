@@ -1,6 +1,9 @@
+import com.android.build.gradle.internal.utils.createPublishingInfoForLibrary
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    id ("maven-publish")
 }
 
 android {
@@ -9,7 +12,6 @@ android {
 
     defaultConfig {
         minSdk = 24
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -21,6 +23,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            consumerProguardFiles ("consumer-rules.pro")
         }
     }
     compileOptions {
@@ -29,6 +32,15 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
+    }
+}
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
     }
 }
 
