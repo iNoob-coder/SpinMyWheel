@@ -34,13 +34,38 @@ android {
         jvmTarget = "11"
     }
 }
+//publishing {
+//    publications {
+//        register<MavenPublication>("release") {
+//            afterEvaluate {
+//                from(components["release"])
+//            }
+//        }
+//    }
+//}
+
 publishing {
     publications {
+        // Register the MavenPublication for the release build
         register<MavenPublication>("release") {
             afterEvaluate {
                 from(components["release"])
             }
+            groupId = "com.github.iNoob-coder"
+            artifactId = "SpinMyWheel"
+            version = "1.0"
+
+            pom {
+                name.set("Spin My Wheel")
+                description.set("Spin Wheel Animation Library")
+                url.set("https://github.com/iNoob-coder/SpinMyWheel")
+            }
         }
+    }
+
+    // Repository configuration to publish to Maven Local
+    repositories {
+        mavenLocal()
     }
 }
 
